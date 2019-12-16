@@ -1,41 +1,36 @@
-import React,{ useEffect} from 'react';
-import {Route, BrowserRouter} from 'react-router-dom';
-import './App.css';
-import Header from './components/Header';
-import TabsPanel from './components/TabsPanel'
-import TodoList from './components/TodoList';
+import React,{useEffect} from 'react';
+import Loader from './Loader';
+import TabsPanel from './TabsPanel'
+import TodoList from './TodoList';
+import AddTodo from './AddTodo';
 import Context from './Context';
-import AddTodo from './components/AddTodo';
 import axios from 'axios';
-import Loader from './components/Loader';
-
   const API_URL = 'https://jsonbox.io/box_7da87468ab6c10280254/todos';
 
-function App() {
-
+export default function UserList(){
   const [todos, setTodos] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [category, setCategory] = React.useState('all')
 
-useEffect(() => {
+  useEffect(() => {
   axios.get(API_URL)
   .then(res => {
     const todos = res.data;
     setTodos( todos );
     setLoading(false);
   })
-}, []);
-//updating data
-// useEffect(() => {
-//  setInterval(() => {  axios.get(API_URL)
-//    .then(res => {
-//      const todos = res.data;
-//      setTodos( todos );
-//    })
-//  }, 5000)
-// }, []);
+  }, []);
+  //updating data
+  // useEffect(() => {
+  //  setInterval(() => {  axios.get(API_URL)
+  //    .then(res => {
+  //      const todos = res.data;
+  //      setTodos( todos );
+  //    })
+  //  }, 5000)
+  // }, []);
 
-function toggleTodo(id) {
+  function toggleTodo(id) {
     setTodos(todos.map(todo => {
         if (todo.id === id) {
           todo.completed = !todo.completed
@@ -45,7 +40,7 @@ function toggleTodo(id) {
     }))
   };
 
-function addTodoItem (title) {
+  function addTodoItem (title) {
   setTodos(todos.concat([{
     title: title,
     id: Date.now(),
@@ -53,22 +48,22 @@ function addTodoItem (title) {
     editMode: false
   }
   ]))
-}
+  }
 
-function removeTodo(id) {
+  function removeTodo(id) {
   setTodos(todos.filter(todo => todo.id !== id))
-}
+  }
 
- function editToggle(id){
+  function editToggle(id){
    setTodos(todos.map(todo => {
      if(todo.id === id){
        todo.editMode = true
      }
   return todo
    }))
-}
+  }
 
-function editTodo(id, value) {
+  function editTodo(id, value) {
   setTodos(todos.map(todo => {
     if(todo.id === id){
       todo.title = value
@@ -77,9 +72,9 @@ function editTodo(id, value) {
     }
     return todo
   }))
-}
+  }
 
-function changeCategory (index){
+  function changeCategory (index){
   if (index === 0){
     setCategory('all')
   }else if(index === 1){
@@ -87,27 +82,16 @@ function changeCategory (index){
   }else {
       setCategory('completed')
   }
-}
+  }
 
   return (
-
     <Context.Provider value={{removeTodo, editToggle, editTodo}}>
-
-    <div className="App">
-        <Header />
-        <div className="app-wrapper-content">
-
           <AddTodo onCreate={addTodoItem} />
           {loading && <Loader/>}
           {todos.length ?( <TodoList todos={todos} category={category}  onToggle={toggleTodo} /> ): (loading ? null : <p>Todo list is empty</p>)}
            <TabsPanel onSelect={changeCategory} />
-        </div>
-
-      </div>
-
-
       </Context.Provider>
     );
-  }
 
-  export default App;
+
+}
