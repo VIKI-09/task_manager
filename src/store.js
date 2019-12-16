@@ -1,7 +1,1 @@
-import React,{useEffect} from 'react';
-import axios from 'axios';
-
-
-
-
-export default todos;
+import React from 'react';

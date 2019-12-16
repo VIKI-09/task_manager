@@ -9,6 +9,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Context from '../Context.js';
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
+import ShareIcon from '@material-ui/icons/Share';
 import Typography from '@material-ui/core/Typography'
 import EditTodoForm from './EditTodoForm'
 import Tooltip from '@material-ui/core/Tooltip';
@@ -51,7 +52,7 @@ function TodoItem ({todo, onChange}){
           </ListItemIcon>
           <ListItemText className={classes.join(' ')} disableTypography={true} >
 
-              <Typography variant='subtitle1'>
+              <Typography variant='subtitle1' >
                 {todo.title}
               </Typography>
 
@@ -60,13 +61,18 @@ function TodoItem ({todo, onChange}){
             :(<EditTodoForm todo={todo} onEdit={editTodo}/>) }
 
       <ListItemSecondaryAction>
+      <Tooltip title='Share' >
+        <IconButton color="primary" >
+            <ShareIcon />
+        </IconButton>
+      </Tooltip>
       <Tooltip title="Edit">
-        <IconButton color="primary" aria-label="edit" onClick={editToggle.bind(null, todo.id)}>
+        <IconButton color="primary" onClick={editToggle.bind(null, todo.id)}>
           <EditIcon />
         </IconButton>
         </Tooltip>
         <Tooltip title="Delete">
-        <IconButton  color="primary" aria-label="delete" onClick={removeTodo.bind(null, todo.id)} >
+        <IconButton  color="secondary" onClick={removeTodo.bind(null, todo.id)} >
           <DeleteIcon />
         </IconButton>
         </Tooltip>

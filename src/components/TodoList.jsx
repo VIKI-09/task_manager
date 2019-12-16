@@ -6,9 +6,8 @@ import List from '@material-ui/core/List'
 
 function TodoList(props) {
 
-  let todosA = props.todos.filter(todo => todo.completed == false)
-  let todosC = props.todos.filter(todo => todo.completed == true
-  )
+  let todosA = props.todos.filter(todo => todo.completed === false)
+  let todosC = props.todos.filter(todo => todo.completed === true)
   return (<div className='wrapper'>
     <List > {(props.category === 'all')?(props.todos.map((todo) => {
 

@@ -1,7 +1,8 @@
 import React,{ useEffect} from 'react';
+import {Route, BrowserRouter} from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
-import Footer from './components/Footer'
+import TabsPanel from './components/TabsPanel'
 import TodoList from './components/TodoList';
 import Context from './Context';
 import AddTodo from './components/AddTodo';
@@ -79,26 +80,32 @@ function editTodo(id, value) {
 }
 
 function changeCategory (index){
-if (index === 0){
-  setCategory('all')
-}else if(index === 1){
-  setCategory('active')}
-  else {
-    setCategory('completed')
+  if (index === 0){
+    setCategory('all')
+  }else if(index === 1){
+    setCategory('active')
+  }else {
+      setCategory('completed')
+  }
 }
-}
 
+  return (
 
+    <Context.Provider value={{removeTodo, editToggle, editTodo}}>
 
+    <div className="App">
+        <Header />
+        <div className="app-wrapper-content">
 
-  return (<Context.Provider value={{removeTodo, editToggle, editTodo}}>
-      <div className="App">
-          <Header />
           <AddTodo onCreate={addTodoItem} />
           {loading && <Loader/>}
           {todos.length ?( <TodoList todos={todos} category={category}  onToggle={toggleTodo} /> ): (loading ? null : <p>Todo list is empty</p>)}
-          <Footer onSelect={changeCategory} />
+           <TabsPanel onSelect={changeCategory} />
         </div>
+
+      </div>
+
+
       </Context.Provider>
     );
   }

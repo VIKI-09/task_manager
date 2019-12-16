@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Footer({onSelect}) {
+export default function TabsPanel({onSelect}) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
