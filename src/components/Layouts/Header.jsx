@@ -9,7 +9,7 @@ export default function Header () {
         <Typography variant="h2" >
            TaskManager
         </Typography>
-         <Button  color="inherit">Login</Button>
+         <Button  color="inherit">Logout</Button>
         </Toolbar>
       </AppBar>
     )

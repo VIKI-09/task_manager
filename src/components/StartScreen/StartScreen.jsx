@@ -3,12 +3,14 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 
-export default function StartPage() {
+export default function StartScreen() {
   return(
-    <div>
+    <div className='start-screen'>
       <Typography>
         Task Manager
       </Typography>
+      <Button>Login</Button>
+      <Button>SignUp</Button>
     </div>
   )
 }

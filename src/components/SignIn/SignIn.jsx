@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function LoginPage() {
+export default function SignIn() {
   const classes = useStyles();
 
   return (
@@ -93,7 +93,7 @@ export default function LoginPage() {
             color="primary"
             className={classes.submit}
           >
-            LOGIN
+            Sign In
           </Button>
           <Grid container>
             <Grid item xs>
