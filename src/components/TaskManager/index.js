@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography'
 import axios from 'axios';
   const API_URL = 'https://jsonbox.io/box_7da87468ab6c10280254/todos';
 
-export default function UserList(){
+export default function TaskManager(){
   const [todos, setTodos] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [category, setCategory] = React.useState('all')
