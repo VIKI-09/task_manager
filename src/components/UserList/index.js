@@ -4,6 +4,7 @@ import TabsPanel from './TabsPanel'
 import TodoList from './TodoList';
 import AddTodo from './AddTodo';
 import Context from './Context';
+import Typography from '@material-ui/core/Typography'
 import axios from 'axios';
   const API_URL = 'https://jsonbox.io/box_7da87468ab6c10280254/todos';
 
@@ -88,7 +89,7 @@ export default function UserList(){
     <Context.Provider value={{removeTodo, editToggle, editTodo}}>
           <AddTodo onCreate={addTodoItem} />
           {loading && <Loader/>}
-          {todos.length ?( <TodoList todos={todos} category={category}  onToggle={toggleTodo} /> ): (loading ? null : <p>Todo list is empty</p>)}
+          {todos.length ?( <TodoList todos={todos} category={category}  onToggle={toggleTodo} /> ): (loading ? null : <Typography align="center" variant="subtitle2" >Todo list is empty</Typography>)}
            <TabsPanel onSelect={changeCategory} />
       </Context.Provider>
     );
