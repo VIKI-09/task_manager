@@ -5,28 +5,10 @@ import App from './Components/App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
+import rootReducer from './store/reducers'
 
-
-
-
-const initialState = {}
-
-const rootReducer = (state = initialState,  action) => {
-  return state;
-};
- const store  = createStore(rootReducer)
-
-
-
-
-
-
-
-
-
-
-
-
+ const store  = createStore(rootReducer);
+ console.log(store)
 
 
 
