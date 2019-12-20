@@ -8,19 +8,27 @@ import Typography from '@material-ui/core/Typography'
 import axios from 'axios';
   const API_URL = 'https://jsonbox.io/box_7da87468ab6c10280254/todos';
 
-export default function TaskManager(){
-  const [todos, setTodos] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
+
+  // let propsinfo = <c taskListData={props.taskListData}
+  // addTask={props.setTaskTitle}
+  // completeToggleTask={props.setTaskComplete}
+  // editToggleTask={props.setTaskForEdit}
+  // editTask={props.setNewTaskTitle}
+  // removeTask={props.removeTask} />
+
+export default function TaskManager(props){
+  // const [todos, setTodos] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
   const [category, setCategory] = React.useState('all')
 
-  useEffect(() => {
-  axios.get(API_URL)
-  .then(res => {
-    const todos = res.data;
-    setTodos( todos );
-    setLoading(false);
-  })
-  }, []);
+  // useEffect(() => {
+  // axios.get(API_URL)
+  // .then(res => {
+  //   const todos = res.data;
+  //   setTodos( todos );
+  //   setLoading(false);
+  // })
+  // }, []);
   //updating data
   // useEffect(() => {
   //  setInterval(() => {  axios.get(API_URL)
@@ -31,49 +39,49 @@ export default function TaskManager(){
   //  }, 5000)
   // }, []);
 
-  function toggleTodo(id) {
-    setTodos(todos.map(todo => {
-        if (todo.id === id) {
-          todo.completed = !todo.completed
-
-      }
-      return todo
-    }))
-  };
-
-  function addTodoItem (title) {
-  setTodos(todos.concat([{
-    title: title,
-    id: Date.now(),
-    completed: false,
-    editMode: false
-  }
-  ]))
-  }
-
-  function removeTodo(id) {
-  setTodos(todos.filter(todo => todo.id !== id))
-  }
-
-  function editToggle(id){
-   setTodos(todos.map(todo => {
-     if(todo.id === id){
-       todo.editMode = true
-     }
-  return todo
-   }))
-  }
-
-  function editTodo(id, value) {
-  setTodos(todos.map(todo => {
-    if(todo.id === id){
-      todo.title = value
-      todo.editMode = false
-      todo.completed = false
-    }
-    return todo
-  }))
-  }
+  // function toggleTodo(id) {
+  //   setTodos(todos.map(todo => {
+  //       if (todo.id === id) {
+  //         todo.completed = !todo.completed
+  //
+  //     }
+  //     return todo
+  //   }))
+  // };
+  //
+  // function addTodoItem (title) {
+  // setTodos(todos.concat([{
+  //   title: title,
+  //   id: Date.now(),
+  //   completed: false,
+  //   editMode: false
+  // }
+  // ]))
+  // }
+  //
+  // function removeTodo(id) {
+  // setTodos(todos.filter(todo => todo.id !== id))
+  // }
+  //
+  // function editToggle(id){
+  //  setTodos(todos.map(todo => {
+  //    if(todo.id === id){
+  //      todo.editMode = true
+  //    }
+  // return todo
+  //  }))
+  // }
+  //
+  // function editTodo(id, value) {
+  // setTodos(todos.map(todo => {
+  //   if(todo.id === id){
+  //     todo.title = value
+  //     todo.editMode = false
+  //     todo.completed = false
+  //   }
+  //   return todo
+  // }))
+  // }
 
   function changeCategory (index){
   if (index === 0){
@@ -86,10 +94,10 @@ export default function TaskManager(){
   }
 
   return (
-    <Context.Provider value={{removeTodo, editToggle, editTodo}}>
-          <AddTodo onCreate={addTodoItem} />
+    <Context.Provider value={{removeTodo:props.removeTask , editToggle: props.editToggleTask , editTodo: props.editTask }}>
+          <AddTodo onCreate={props.addTask} />
           {loading && <Loader/>}
-          {todos.length ?( <TodoList todos={todos} category={category}  onToggle={toggleTodo} /> ): (loading ? null : <Typography align="center" variant="subtitle2" >Todo list is empty</Typography>)}
+          {props.taskListData.length ?( <TodoList todos={props.taskListData} category={category}  onToggle={props.completeToggleTask} /> ): (loading ? null : <Typography align="center" variant="subtitle2" >Todo list is empty</Typography>)}
            <TabsPanel onSelect={changeCategory} />
       </Context.Provider>
     );

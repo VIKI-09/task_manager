@@ -2,7 +2,7 @@
 import {Route, BrowserRouter} from 'react-router-dom';
 import '../App.css';
 import {Header, Footer} from './Layouts'
-import TaskManager from './TaskManager'
+import TaskManagerContainer from '../Containers/TaskManagerContainer'
 import {SignUp} from './SignUp'
 import {SignIn} from './SignIn'
 
@@ -19,7 +19,7 @@ function App() {
             <Header />
              <Route path='/sign-in' component={SignIn}/>
              <Route path='/sign-up'> <SignUp onSubmit={onSubmit} /></Route>
-             <Route path='/list' component={TaskManager}/>
+             <Route path='/list' component={TaskManagerContainer}/>
             <Footer />
           </div>
       </BrowserRouter>
