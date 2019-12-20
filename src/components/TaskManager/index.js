@@ -97,7 +97,7 @@ export default function TaskManager(props){
     <Context.Provider value={{removeTodo:props.removeTask , editToggle: props.editToggleTask , editTodo: props.editTask }}>
           <AddTodo onCreate={props.addTask} />
           {loading && <Loader/>}
-          {props.taskListData.length ?( <TodoList todos={props.taskListData} category={category}  onToggle={props.completeToggleTask} /> ): (loading ? null : <Typography align="center" variant="subtitle2" >Todo list is empty</Typography>)}
+          {props.taskListData.length ?( <TodoList todos={props.taskListData} category={category}  onToggle={props.completeToggleTask} /> ): (loading ? null : <Typography align="center" variant="subtitle2" >Task list is empty</Typography>)}
            <TabsPanel onSelect={changeCategory} />
       </Context.Provider>
     );
