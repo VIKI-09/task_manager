@@ -6,7 +6,7 @@ import TaskManagerContainer from '../Containers/TaskManagerContainer'
 import {SignUp} from './SignUp'
 import {SignIn} from './SignIn'
 import { PrivateRoute } from './PrivateRoute'
-
+import { history } from '../history'
 
 function App() {
 
@@ -17,7 +17,7 @@ function App() {
 
 
   return (
-      <BrowserRouter>
+      <BrowserRouter  history={history} >
         <div className="App">
             <Header />
               <PrivateRoute exact path='/' component={TaskManagerContainer} />

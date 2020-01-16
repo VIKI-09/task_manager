@@ -12,6 +12,37 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import { Field, reduxForm} from 'redux-form';
+
+const renderTextField = ({
+  label,
+  input,
+  meta: { touched, invalid, error }, ...custom }) => (
+  <TextField
+    label={label}
+    placeholder={label}
+    error={touched && invalid}
+    helperText={touched && error}
+    {...input}
+    {...custom}
+  />
+)
+
+
+const renderCheckbox = ({ input, label }) => (
+  <div>
+    <FormControlLabel
+      control={
+        <Checkbox
+          checked={input.value ? true : false}
+          onChange={input.onChange}
+        />
+      }
+      label={label}
+    />
+  </div>
+)
+
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -32,7 +63,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignIn() {
+ function SignIn() {
   const classes = useStyles();
 
   return (
@@ -46,7 +77,8 @@ export default function SignIn() {
           Sign in
         </Typography>
         <form className={classes.form} noValidate>
-          <TextField
+          <Field
+            component={renderTextField}
             variant="outlined"
             margin="normal"
             required
@@ -57,7 +89,8 @@ export default function SignIn() {
             autoComplete="email"
             autoFocus
           />
-          <TextField
+          <Field
+            component={renderTextField}
             variant="outlined"
             margin="normal"
             required
@@ -68,8 +101,9 @@ export default function SignIn() {
             id="password"
             autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
+          <Field
+            name='remember_me'
+            component={renderCheckbox}
             label="Remember me"
           />
           <Button
@@ -98,3 +132,7 @@ export default function SignIn() {
     </Container>
   );
 }
+
+export default reduxForm({
+  form: 'sign-in-form'
+})(SignIn)
