@@ -3,6 +3,7 @@ import {Route, BrowserRouter, Redirect } from 'react-router-dom';
 import '../App.css';
 import {Header, Footer} from './Layouts'
 import TaskManagerContainer from '../Containers/TaskManagerContainer'
+import SignUpContainer from '../Containers/SignUpContainer'
 import {SignUp} from './SignUp'
 import {SignIn} from './SignIn'
 import { PrivateRoute } from './PrivateRoute'
@@ -21,7 +22,7 @@ function App() {
         <div className="App">
             <Header />
               <PrivateRoute exact path='/' component={TaskManagerContainer} />
-              <Route path='/sign-up'> <SignUp/></Route>
+              <Route path='/sign-up' component={SignUpContainer}/>
               <Route path='/sign-in' component={SignIn}/>
               <Redirect from="*" to="/" />
             <Footer />
