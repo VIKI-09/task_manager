@@ -38,6 +38,7 @@
     ]
   },
   "devDependencies": {
-    "@material-ui/icons": "^4.4.3"
+    "@material-ui/icons": "^4.4.3",
+    "redux-thunk": "^2.3.0"
   }
 }

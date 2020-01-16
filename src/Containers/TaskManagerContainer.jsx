@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import TaskManager from '../Components/TaskManager';
 import {connect } from 'react-redux';
 import {setTaskTitle, setTaskComplete, removeTask, setNewTaskTitle, setTaskForEdit} from '../store/TaskManager/actions'

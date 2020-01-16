@@ -1,20 +1,21 @@
-import React,{useEffect} from 'react';
+import React from 'react';
+// import React,{useEffect} from 'react';
 import Loader from './Loader';
 import TabsPanel from './TabsPanel'
 import TodoList from './TodoList';
 import AddTodo from './AddTodo';
 import Context from './Context';
 import Typography from '@material-ui/core/Typography'
-import axios from 'axios';
-  const API_URL = 'https://jsonbox.io/box_7da87468ab6c10280254/todos';
-
-
-  // let propsinfo = <c taskListData={props.taskListData}
-  // addTask={props.setTaskTitle}
-  // completeToggleTask={props.setTaskComplete}
-  // editToggleTask={props.setTaskForEdit}
-  // editTask={props.setNewTaskTitle}
-  // removeTask={props.removeTask} />
+// import axios from 'axios';
+//   const API_URL = 'https://jsonbox.io/box_7da87468ab6c10280254/todos';
+//
+//
+//   // let propsinfo = <c taskListData={props.taskListData}
+//   // addTask={props.setTaskTitle}
+//   // completeToggleTask={props.setTaskComplete}
+//   // editToggleTask={props.setTaskForEdit}
+//   // editTask={props.setNewTaskTitle}
+//   // removeTask={props.removeTask} />
 
 export default function TaskManager(props){
   // const [todos, setTodos] = React.useState([]);

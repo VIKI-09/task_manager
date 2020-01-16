@@ -3,17 +3,25 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './Components/App';
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import rootReducer from './store/reducers'
-import {loadState, saveState} from './localStorage'
+import  configureFakeBackend from './fake_backend/configureFakeBackend.js'
+import thunkMiddleware from 'redux-thunk';
 
 
-const loadedState = loadState();
- const store  = createStore(rootReducer,loadedState , window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
- console.log(store)
-store.subscribe(() => {
-  saveState(store.getState());
-})
+// import {loadState, saveState} from './localStorage'
+// // const loadedState = loadState()
+// //  const store  = createStore(rootReducer,loadedState, applyMiddleware(thunkMiddleware),  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+// // store.subscribe(() => {
+// //   saveState(store.getState());
+// // })
+
+
+configureFakeBackend();
+
+
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+
 
 
 ReactDOM.render(<Provider store={store}>
