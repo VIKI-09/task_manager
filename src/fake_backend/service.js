@@ -1,5 +1,5 @@
-
-import { authHeader } from './authorizationHeader';
+import config from 'config';
+import { authHeader } from './authorization-header.js';
 
 export const userService = {
     login,
@@ -11,10 +11,6 @@ export const userService = {
     delete: _delete
 };
 
-// const apiUrl = process.env.REACT_APP_API_URI
-const apiUrl = 'http://localhost:3000'
-console.log(apiUrl)
-console.log(register)
 function login(username, password) {
     const requestOptions = {
         method: 'POST',
@@ -22,7 +18,7 @@ function login(username, password) {
         body: JSON.stringify({ username, password })
     };
 
-    return fetch(`${apiUrl}/users/authenticate`, requestOptions)
+    return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
         .then(handleResponse)
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -43,7 +39,7 @@ function getAll() {
         headers: authHeader()
     };
 
-    return fetch(`${apiUrl}/users`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
 }
 
 function getById(id) {
@@ -52,7 +48,7 @@ function getById(id) {
         headers: authHeader()
     };
 
-    return fetch(`${apiUrl}/users/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
 }
 
 function register(user) {
@@ -62,7 +58,7 @@ function register(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`${apiUrl}/users/sign-up`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/users/register`, requestOptions).then(handleResponse);
 }
 
 function update(user) {
@@ -72,7 +68,7 @@ function update(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`${apiUrl}/users/${user.id}`, requestOptions).then(handleResponse);;
+    return fetch(`${config.apiUrl}/users/${user.id}`, requestOptions).then(handleResponse);;
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
@@ -82,7 +78,7 @@ function _delete(id) {
         headers: authHeader()
     };
 
-    return fetch(`${apiUrl}/users/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
@@ -92,7 +88,7 @@ function handleResponse(response) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api
                 logout();
-                window.location.reload(true);
+                location.reload(true);
             }
 
             const error = (data && data.message) || response.statusText;
