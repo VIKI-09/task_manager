@@ -21,10 +21,10 @@ function App() {
       <BrowserRouter  history={history} >
         <div className="App">
             <Header />
-              <PrivateRoute exact path='/' component={TaskManagerContainer} />
+              <PrivateRoute exact path='/list' component={TaskManagerContainer} />
               <Route path='/sign-up' component={SignUpContainer}/>
               <Route path='/sign-in' component={SignIn}/>
-              <Redirect from="*" to="/" />
+              <Redirect from="*" to="/list" />
             <Footer />
           </div>
       </BrowserRouter>
