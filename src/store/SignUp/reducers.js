@@ -1,17 +1,16 @@
-import { REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE} from './actions'
+const defaultState = {
+  firstName: '',
+  lastName: '',
+  id: '',
+  email: '',
+  password: '',
+  taskList: ''
+}
 
-export function registration(state = {}, action) {
-  switch (action.type) {
-    case REGISTER_REQUEST:
-      return { registering: true };
-
-    case REGISTER_SUCCESS:
-      return {};
-
-    case REGISTER_FAILURE:
-      return {};
-
-    default:
-      return state
+const signInReducer = (state, action) => {
+  switch(action.type){
+    // case
   }
+
+  return state;
 }
