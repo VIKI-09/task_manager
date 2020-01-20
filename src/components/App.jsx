@@ -7,7 +7,7 @@ import SignUpContainer from '../Containers/SignUpContainer'
 import {SignUp} from './SignUp'
 import {SignIn} from './SignIn'
 import { PrivateRoute } from './PrivateRoute'
-import history from '../fake_backend/history'
+import { history } from '../fake_backend/history'
 
 function App() {
 
@@ -22,8 +22,8 @@ function App() {
         <div className="App">
             <Header />
               <PrivateRoute exact path='/' component={TaskManagerContainer} />
-              <Route path='/sign-up' component={SignUpContainer}/>
-              <Route path='/sign-in' component={SignIn}/>
+              <Route path='/register' component={SignUp}/>
+              <Route path='/login' component={SignIn}/>
               <Redirect from="*" to="/" />
             <Footer />
           </div>

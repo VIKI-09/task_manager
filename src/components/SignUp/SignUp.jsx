@@ -14,6 +14,9 @@ import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm} from 'redux-form';
 
+const onSubmit = values => {
+  console.log(values)
+}
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -121,11 +124,6 @@ const SignUp = props => {
               />
             </Grid>
           </Grid>
-          <Link to='/sign-in' variant="body2">
-            Already have an account? Sign in
-          </Link>
-          <Link to='/list' variant="body2">
-
           <Button
             type="submit"
             fullWidth
@@ -135,10 +133,9 @@ const SignUp = props => {
           >
             Sign Up
           </Button>
-        </Link>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link to='/sign-in' variant="body2">
+              <Link to='/login' variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
@@ -149,5 +146,6 @@ const SignUp = props => {
   );
 }
 export default reduxForm({
-  form: 'sign-up-form'
+  form: 'sign-up-form',
+  onSubmit
 })(SignUp)
