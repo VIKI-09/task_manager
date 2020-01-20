@@ -1,32 +1,30 @@
 import React from 'react';
-import {Route, BrowserRouter} from 'react-router-dom';
+import {Route, BrowserRouter, Redirect } from 'react-router-dom';
 import '../App.css';
 import {Header, Footer} from './Layouts'
 import TaskManagerContainer from '../Containers/TaskManagerContainer'
+import SignUpContainer from '../Containers/SignUpContainer'
 import {SignUp} from './SignUp'
 import {SignIn} from './SignIn'
+import { PrivateRoute } from './PrivateRoute'
+import history from '../fake_backend/history'
 
 function App() {
-  // const onSubmit = (values) =>{
-  //   console.log(values)
-  // }
-  function onSubmit(values){
-    console.log(values)
+
+  function generateId(){
+    const id = `f${(~~(Math.random()*1e8)).toString(16)}`;
+    return id
   }
+
+
   return (
-      <BrowserRouter>
+      <BrowserRouter  history={history} >
         <div className="App">
             <Header />
-<<<<<<< HEAD
-             <Route path='/sign-in' component={SignIn}/>
-             <Route path='/sign-up'> <SignUp onSubmit={onSubmit} /></Route>
-             <Route path='/list' component={TaskManagerContainer}/>
-=======
               <PrivateRoute exact path='/' component={TaskManagerContainer} />
               <Route path='/sign-up' component={SignUpContainer}/>
               <Route path='/sign-in' component={SignIn}/>
               <Redirect from="*" to="/" />
->>>>>>> parent of 016d59e... 1
             <Footer />
           </div>
       </BrowserRouter>
