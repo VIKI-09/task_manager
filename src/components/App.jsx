@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, BrowserRouter, Redirect } from 'react-router-dom';
+import {Route, Router, Redirect } from 'react-router-dom';
 import '../App.css';
 import {Header, Footer} from './Layouts'
 import TaskManagerContainer from '../Containers/TaskManagerContainer'
@@ -18,7 +18,7 @@ function App() {
 
 
   return (
-      <BrowserRouter  history={history} >
+      <Router  history={history} >
         <div className="App">
             <Header />
               <PrivateRoute exact path='/' component={TaskManagerContainer} />
@@ -27,7 +27,7 @@ function App() {
               <Redirect from="*" to="/" />
             <Footer />
           </div>
-      </BrowserRouter>
+      </Router>
     );
   }
 
