@@ -12,11 +12,13 @@ export const userService = {
     delete: _delete
 };
 
-function login(username, password) {
+function login({email, password}) {
+  console.log(email)
+  console.log(password)
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ email, password })
     };
 
     return fetch(`${API_URL}/users/authenticate`, requestOptions)
@@ -53,6 +55,7 @@ function getById(id) {
 }
 
 function register(user) {
+  console.log('SERVICE REGISTERING____________________')
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

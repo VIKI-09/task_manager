@@ -13,10 +13,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm} from 'redux-form';
-import {signUpUser} from '../../store/SignUp/actions'
+
+import {userService} from '../../services/userService'
 
 const onSubmit = values => {
-  signUpUser(values)
+
+    userService.register(values)
   console.log(values)
 }
 

@@ -12,8 +12,13 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
 import { Field, reduxForm} from 'redux-form';
+import {userService} from '../../services/userService'
+
+const onSubmit = values => {
+  console.log(values)
+  userService.login(values)
+}
 
 const renderTextField = ({
   label,
@@ -64,8 +69,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
- function SignIn() {
+const  SignIn = props => {
   const classes = useStyles();
+    const {handleSubmit} = props
 
   return (
     <Container component="main" maxWidth="xs">
@@ -77,7 +83,7 @@ const useStyles = makeStyles(theme => ({
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <Field
             component={renderTextField}
             variant="outlined"
@@ -133,5 +139,6 @@ const useStyles = makeStyles(theme => ({
 }
 
 export default reduxForm({
-  form: 'sign-in-form'
+  form: 'sign-in-form',
+  onSubmit
 })(SignIn)

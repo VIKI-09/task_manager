@@ -11,10 +11,6 @@ import { history } from '../fake_backend/history'
 
 function App() {
 
-  function generateId(){
-    const id = `f${(~~(Math.random()*1e8)).toString(16)}`;
-    return id
-  }
 
 
   return (

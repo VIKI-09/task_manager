@@ -1,7 +1,15 @@
 // array in local storage for registered users
 let users = JSON.parse(localStorage.getItem('users')) || [];
 
+function generateId(){
+  const id = `f${(~~(Math.random()*1e8)).toString(16)}`;
+  return id
+}
+
+
+
 export function configureFakeBackend() {
+  console.log('CONFIG________BACKEND')
     let realFetch = window.fetch;
     window.fetch = function (url, opts) {
         return new Promise((resolve, reject) => {
@@ -15,7 +23,7 @@ export function configureFakeBackend() {
 
                     // find if any user matches login credentials
                     let filteredUsers = users.filter(user => {
-                        return user.username === params.username && user.password === params.password;
+                        return user.email === params.email && user.password === params.password;
                     });
 
                     if (filteredUsers.length) {
@@ -23,7 +31,7 @@ export function configureFakeBackend() {
                         let user = filteredUsers[0];
                         let responseJson = {
                             id: user.id,
-                            username: user.username,
+                            email: user.email,
                             firstName: user.firstName,
                             lastName: user.lastName,
                             token: 'fake-jwt-token'
@@ -72,18 +80,20 @@ export function configureFakeBackend() {
 
                 // register user
                 if (url.endsWith('/users/register') && opts.method === 'POST') {
+
+                  console.log('-----------------ADDING----NEW-----USER')
                     // get new user object from post body
                     let newUser = JSON.parse(opts.body);
 
                     // validation
-                    let duplicateUser = users.filter(user => { return user.username === newUser.username; }).length;
+                    let duplicateUser = users.filter(user => { return user.email === newUser.email; }).length;
                     if (duplicateUser) {
-                        reject('Username "' + newUser.username + '" is already taken');
+                        reject('Username "' + newUser.email + '" is already taken');
                         return;
                     }
 
                     // save new user
-                    newUser.id = users.length ? Math.max(...users.map(user => user.id)) + 1 : 1;
+                    newUser.id = generateId();
                     users.push(newUser);
                     localStorage.setItem('users', JSON.stringify(users));
 

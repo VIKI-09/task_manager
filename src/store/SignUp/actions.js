@@ -4,13 +4,14 @@ import {userService} from '../../services/userService'
 
 
 
-const USER_SIGNUP_REQUEST = 'USER_SIGNUP_REQUEST'
-const USER_SIGNUP_SUCCESS = 'USER_SIGNUP_SUCCESS'
-const USER_SIGNUP_FAILURE = 'USER_SIGNUP_FAILURE'
+export const USER_SIGNUP_REQUEST = 'USER_SIGNUP_REQUEST'
+export const USER_SIGNUP_SUCCESS = 'USER_SIGNUP_SUCCESS'
+export const USER_SIGNUP_FAILURE = 'USER_SIGNUP_FAILURE'
 
 
 
 export function signUpUser(user) {
+  console.log('REGISTER ACTION')
     return dispatch => {
         dispatch(request(user));
 
