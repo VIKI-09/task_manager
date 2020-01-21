@@ -5,7 +5,36 @@ function generateId(){
   const id = `f${(~~(Math.random()*1e8)).toString(16)}`;
   return id
 }
-
+const todos = [
+  {
+  "userId":1,
+  "id":1,
+  "title":"Feed dog",
+  "completed":false,
+  "editMode":false
+   },
+   {
+    "userId":1,
+    "id":2,
+    "title":"Training",
+    "completed":false,
+    "editMode":false
+  },
+  {
+   "userId":1,
+   "id":3,
+   "title":"Eat",
+   "completed":false,
+   "editMode":false
+   },
+   {
+     "userId":1,
+     "id":4,
+     "title":"Guitar",
+     "completed":false,
+     "editMode":false
+   }
+ ]
 
 
 export function configureFakeBackend() {
@@ -34,6 +63,7 @@ export function configureFakeBackend() {
                             email: user.email,
                             firstName: user.firstName,
                             lastName: user.lastName,
+                            taskList: user.taskList,
                             token: 'fake-jwt-token'
                         };
                         resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(responseJson)) });
@@ -94,6 +124,7 @@ export function configureFakeBackend() {
 
                     // save new user
                     newUser.id = generateId();
+                    newUser.taskList = todos;
                     users.push(newUser);
                     localStorage.setItem('users', JSON.stringify(users));
 

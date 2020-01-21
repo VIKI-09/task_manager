@@ -9,6 +9,7 @@ export const userService = {
     getAll,
     getById,
     update,
+    getTaskList,
     delete: _delete
 };
 
@@ -29,6 +30,12 @@ function login({email, password}) {
 
             return user;
         });
+}
+
+function getTaskList(){
+  let user = localStorage.getItem('user');
+  let list =  user ? JSON.parse(user).taskList : []
+  return  list;
 }
 
 function logout() {
