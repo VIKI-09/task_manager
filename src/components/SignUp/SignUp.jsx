@@ -13,13 +13,22 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
-
+import { history } from '../../fake_backend/history'
 import { userService } from '../../services/userService'
 
 const onSubmit = values => {
 
-    userService.register(values)
-  console.log(values)
+    // userService.register(values)
+return userService.register(values)
+}
+
+const onSubmitSuccess = () => {
+    // history.push('/login');
+      console.log('_________SUCCESS FORM SUBMIT_________')
+}
+
+const onSubmitFail = () => {
+  console.log('_________FAILED FORM SUBMIT_________')
 }
 
 const useStyles = makeStyles(theme => ({
@@ -75,7 +84,7 @@ const SignUp = props => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form onSubmit={handleSubmit} className={classes.form} noValidate>
+        <form onSubmit={handleSubmit} className={classes.form} >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Field
@@ -151,5 +160,7 @@ const SignUp = props => {
 }
 export default reduxForm({
   form: 'sign-up-form',
-  onSubmit
+  onSubmit,
+  onSubmitSuccess,
+  onSubmitFail
 })(SignUp)

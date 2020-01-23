@@ -70,6 +70,7 @@ function register(user) {
     };
 
     return fetch(`${API_URL}/users/register`, requestOptions).then(handleResponse);
+    
 }
 
 function update(user) {
