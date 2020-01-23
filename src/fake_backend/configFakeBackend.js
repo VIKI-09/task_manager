@@ -45,7 +45,6 @@ export function configureFakeBackend() {
                         }
 
                     } else {
-                        // else return error
                         reject(new SubmissionError({email:'User does not exist',  _error:'Sign in failed!'}));
                     }
 
