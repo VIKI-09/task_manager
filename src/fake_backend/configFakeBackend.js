@@ -1,40 +1,11 @@
+import { SubmissionError } from 'redux-form'
+
 // array in local storage for registered users
 let users = JSON.parse(localStorage.getItem('users')) || [];
-
 function generateId(){
   const id = `f${(~~(Math.random()*1e8)).toString(16)}`;
   return id
 }
-const todos = [
-  {
-  "userId":1,
-  "id":1,
-  "title":"Feed dog",
-  "completed":false,
-  "editMode":false
-   },
-   {
-    "userId":1,
-    "id":2,
-    "title":"Training",
-    "completed":false,
-    "editMode":false
-  },
-  {
-   "userId":1,
-   "id":3,
-   "title":"Eat",
-   "completed":false,
-   "editMode":false
-   },
-   {
-     "userId":1,
-     "id":4,
-     "title":"Guitar",
-     "completed":false,
-     "editMode":false
-   }
- ]
 
 
 export function configureFakeBackend() {
@@ -52,24 +23,30 @@ export function configureFakeBackend() {
 
                     // find if any user matches login credentials
                     let filteredUsers = users.filter(user => {
-                        return user.email === params.email && user.password === params.password;
+                        return user.email === params.email
+                         // && user.password === params.password;
                     });
 
                     if (filteredUsers.length) {
                         // if login details are valid return user details and fake jwt token
                         let user = filteredUsers[0];
-                        let responseJson = {
-                            id: user.id,
-                            email: user.email,
-                            firstName: user.firstName,
-                            lastName: user.lastName,
-                            taskList: user.taskList,
-                            token: 'fake-jwt-token'
-                        };
-                        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(responseJson)) });
+                        if(user.password === params.password){
+                          let responseJson = {
+                              id: user.id,
+                              email: user.email,
+                              firstName: user.firstName,
+                              lastName: user.lastName,
+                              taskList: user.taskList,
+                              token: 'fake-jwt-token'
+                          };
+                          resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(responseJson)) });
+                        } else{
+                          reject(new SubmissionError({password:'Wrong password',  _error:'Sign in failed!'}));
+                        }
+
                     } else {
                         // else return error
-                        reject('Username or password is incorrect');
+                        reject(new SubmissionError({email:'User does not exist',  _error:'Sign in failed!'}));
                     }
 
                     return;
@@ -118,13 +95,13 @@ export function configureFakeBackend() {
                     // validation
                     let duplicateUser = users.filter(user => { return user.email === newUser.email; }).length;
                     if (duplicateUser) {
-                        reject('Username "' + newUser.email + '" is already taken');
+                        reject(new SubmissionError({email:'User email "' + newUser.email + '" is already taken', _error:'sign up failed'}));
                         return;
                     }
 
                     // save new user
                     newUser.id = generateId();
-                    newUser.taskList = todos;
+                    newUser.taskList = [];
                     users.push(newUser);
                     localStorage.setItem('users', JSON.stringify(users));
 
@@ -168,3 +145,33 @@ export function configureFakeBackend() {
         });
     }
 }
+
+
+// if (url.endsWith('/users/authenticate') && opts.method === 'POST') {
+//     // get parameters from post request
+//     let params = JSON.parse(opts.body);
+//
+//     // find if any user matches login credentials
+//     let filteredUsers = users.filter(user => {
+//         return user.email === params.email && user.password === params.password;
+//     });
+//
+//     if (filteredUsers.length) {
+//         // if login details are valid return user details and fake jwt token
+//         let user = filteredUsers[0];
+//         let responseJson = {
+//             id: user.id,
+//             email: user.email,
+//             firstName: user.firstName,
+//             lastName: user.lastName,
+//             taskList: user.taskList,
+//             token: 'fake-jwt-token'
+//         };
+//         resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(responseJson)) });
+//     } else {
+//         // else return error
+//         reject(new SubmissionError({email:'Username or password is incorrect', password: 'Username or password is incorrect', _error:'sign up failed'}));
+//     }
+//
+//     return;
+// }

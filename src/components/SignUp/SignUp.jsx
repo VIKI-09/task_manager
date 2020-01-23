@@ -92,7 +92,7 @@ const renderTextField = ({
 
 
 const SignUp = props => {
-  const {handleSubmit, submitting} = props
+  const { handleSubmit, submitting } = props
   const classes = useStyles();
 
   return (

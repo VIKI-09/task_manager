@@ -14,6 +14,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Field, reduxForm} from 'redux-form';
 import {userService} from '../../services/userService'
+import { history } from '../../fake_backend/history'
+
+
 
 const onSubmit = values => {
 
@@ -21,7 +24,7 @@ const onSubmit = values => {
 }
 
 const onSubmitSuccess = () => {
-    // history.push('/');
+    history.push('/');
       console.log('_________SUCCESS LOGIN FORM SUBMIT_________')
 }
 
@@ -79,9 +82,26 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+
+const validate = (values) => {
+  const errors = {}
+  const requiredFields = [
+    'email',
+    'password'
+  ]
+  requiredFields.forEach(field => {
+    if (!values[field]) {
+      errors[field] = 'Required'
+    }
+  })
+
+  return errors
+}
+
+
 const  SignIn = props => {
   const classes = useStyles();
-    const {handleSubmit} = props
+    const { handleSubmit, submitting } = props
 
   return (
     <Container component="main" maxWidth="xs">
@@ -129,6 +149,7 @@ const  SignIn = props => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            disabled={submitting}
           >
             Sign In
           </Button>
@@ -150,6 +171,7 @@ const  SignIn = props => {
 
 export default reduxForm({
   form: 'sign-in-form',
+  validate,
   onSubmit,
   onSubmitSuccess,
   onSubmitFail
