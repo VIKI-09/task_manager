@@ -16,9 +16,19 @@ import { Field, reduxForm} from 'redux-form';
 import {userService} from '../../services/userService'
 
 const onSubmit = values => {
-  console.log(values)
-  userService.login(values)
+
+  return userService.login(values)
 }
+
+const onSubmitSuccess = () => {
+    // history.push('/');
+      console.log('_________SUCCESS LOGIN FORM SUBMIT_________')
+}
+
+const onSubmitFail = () => {
+  console.log('_________FAILED LOGIN FORM SUBMIT_________')
+}
+
 
 const renderTextField = ({
   label,
@@ -83,7 +93,7 @@ const  SignIn = props => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form onSubmit={handleSubmit} className={classes.form} noValidate>
+        <form onSubmit={handleSubmit} className={classes.form} >
           <Field
             component={renderTextField}
             variant="outlined"
@@ -140,5 +150,7 @@ const  SignIn = props => {
 
 export default reduxForm({
   form: 'sign-in-form',
-  onSubmit
+  onSubmit,
+  onSubmitSuccess,
+  onSubmitFail
 })(SignIn)

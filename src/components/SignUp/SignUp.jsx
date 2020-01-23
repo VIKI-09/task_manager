@@ -16,14 +16,15 @@ import { Field, reduxForm } from 'redux-form';
 import { history } from '../../fake_backend/history'
 import { userService } from '../../services/userService'
 
-const onSubmit = values => {
 
-    // userService.register(values)
-return userService.register(values)
+
+const onSubmit = (values) => {
+        // userService.register(values)
+        return userService.register(values)
 }
 
 const onSubmitSuccess = () => {
-    // history.push('/login');
+    history.push('/login');
       console.log('_________SUCCESS FORM SUBMIT_________')
 }
 
@@ -51,27 +52,47 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
+const validate = (values) => {
+  const errors = {}
+  const requiredFields = [
+    'firstName',
+    'lastName',
+    'email',
+    'password'
+  ]
+  requiredFields.forEach(field => {
+    if (!values[field]) {
+      errors[field] = 'Required'
+    }
+  })
+  if (
+    values.email &&
+    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+  ) {
+    errors.email = 'Invalid email address'
+  }
+  return errors
+}
 
 const renderTextField = ({
-  label,
-  input,
-  meta: { touched, invalid, error },
-  ...custom
-}) => (
-  <TextField
-    label={label}
-    placeholder={label}
-    error={touched && invalid}
-    helperText={touched && error}
-    {...input}
-    {...custom}
-  />
+    label,
+    input,
+    meta: { touched, invalid, error },
+    ...custom
+  }) => (
+    <TextField
+      label={label}
+      placeholder={label}
+      error={touched && invalid}
+      helperText={touched && error}
+      {...input}
+      {...custom}
+    />
 )
 
 
 const SignUp = props => {
-  const {handleSubmit} = props
+  const {handleSubmit, submitting} = props
   const classes = useStyles();
 
   return (
@@ -84,7 +105,7 @@ const SignUp = props => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form onSubmit={handleSubmit} className={classes.form} >
+        <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Field
@@ -143,6 +164,7 @@ const SignUp = props => {
             variant="contained"
             color="primary"
             className={classes.submit}
+          disabled={submitting}
           >
             Sign Up
           </Button>
@@ -160,6 +182,7 @@ const SignUp = props => {
 }
 export default reduxForm({
   form: 'sign-up-form',
+  validate,
   onSubmit,
   onSubmitSuccess,
   onSubmitFail

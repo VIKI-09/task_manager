@@ -3,8 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button';
-
+import IconButton from '@material-ui/core/IconButton';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Tooltip from '@material-ui/core/Tooltip';
 const useStyles = makeStyles(theme => ({
 
   root: {
@@ -20,7 +21,9 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-
+const  temp = () => {
+  console.log('clicked')
+}
 
 export default function Header (props) {
   const classes = useStyles();
@@ -30,9 +33,11 @@ export default function Header (props) {
         <Typography variant="h2" className={classes.title} >
            TaskManager
         </Typography>
-        <Button size='small' color="inherit" >
-            Logout
-        </Button>
+        <Tooltip title='Logout'>
+        <IconButton onClick={temp}  size='small' color="inherit" >
+            <ExitToAppIcon />
+        </IconButton>
+        </Tooltip>
         </Toolbar>
       </AppBar>
     )
