@@ -7,6 +7,7 @@ export const userService = {
     logout,
     register,
     getAll,
+    getUserStatus,
     getById,
     update,
     getTaskList,
@@ -36,6 +37,10 @@ function getTaskList(){
   let user = localStorage.getItem('user');
   let list =  user ? JSON.parse(user).taskList : []
   return  list;
+}
+
+function getUserStatus(){
+   return localStorage.getItem('user') ? true : false
 }
 
 function logout() {
@@ -70,7 +75,7 @@ function register(user) {
     };
 
     return fetch(`${API_URL}/users/register`, requestOptions).then(handleResponse);
-    
+
 }
 
 function update(user) {

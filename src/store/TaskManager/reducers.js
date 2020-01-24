@@ -3,9 +3,9 @@
 import {ADD_TASK, COMPLETE_TOGGLE_TASK, REMOVE_TASK, EDIT_TASK, EDIT_TOGGLE_TASK} from './actions';
 import { userService } from '../../services/userService'
 
-const defaultState  = userService.getTaskList()
+const initialState  = userService.getTaskList()
 
-export const taskManagerReducer = (state = defaultState, action) => {
+export const taskManagerReducer = (state = initialState, action) => {
     switch(action.type){
       case ADD_TASK :
         return [

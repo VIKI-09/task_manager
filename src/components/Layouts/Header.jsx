@@ -21,27 +21,22 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const  temp = () => {
-  console.log('clicked')
-}
 
 export default function Header (props) {
   const classes = useStyles();
+  const logoutButton = ( <Tooltip title='Logout'>
+    <IconButton onClick={props.userLogout}  size='small' color="inherit" >
+        <ExitToAppIcon />
+    </IconButton>
+    </Tooltip>)
 
   return(  <AppBar position="static" className={classes.root}>
       <Toolbar>
         <Typography variant="h2" className={classes.title} >
            TaskManager
         </Typography>
-        <Tooltip title='Logout'>
-        <IconButton onClick={temp}  size='small' color="inherit" >
-            <ExitToAppIcon />
-        </IconButton>
-        </Tooltip>
+          {props.userStatus.loggedIn ? logoutButton : null }
         </Toolbar>
       </AppBar>
     )
   };
-
-
-    // <Button  color="inherit">Logout</Button>

@@ -15,15 +15,15 @@ import Container from '@material-ui/core/Container';
 import { Field, reduxForm} from 'redux-form';
 import {userService} from '../../services/userService'
 import { history } from '../../fake_backend/history'
-
-
+import { changeStatusLogin } from '../../store/AppBar/actions'
 
 const onSubmit = values => {
 
   return userService.login(values)
 }
 
-const onSubmitSuccess = () => {
+const onSubmitSuccess = (error, dispatch) => {
+    dispatch(changeStatusLogin())
     history.push('/');
       console.log('_________SUCCESS LOGIN FORM SUBMIT_________')
 }
@@ -106,6 +106,8 @@ const validate = (values) => {
 
 
 const  SignIn = props => {
+
+
   const classes = useStyles();
     const { handleSubmit, submitting } = props
 
@@ -119,7 +121,7 @@ const  SignIn = props => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form onSubmit={handleSubmit} className={classes.form} >
+        <form onSubmit={handleSubmit} className={classes.form} noValidate >
           <Field
             component={renderTextField}
             variant="outlined"
