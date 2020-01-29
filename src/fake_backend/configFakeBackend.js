@@ -2,9 +2,19 @@ import { SubmissionError } from 'redux-form'
 
 // array in local storage for registered users
 let users = JSON.parse(localStorage.getItem('users')) || [];
+
+let tasks = JSON.parse(localStorage.getItem('tasks')) || []
+
 function generateId(){
   const id = `f${(~~(Math.random()*1e8)).toString(16)}`;
   return id
+}
+
+const getEmails = users => {
+  console.log(users)
+  let emails = []
+  users.map(user => emails.push(user.email))
+    return emails
 }
 
 
@@ -55,7 +65,10 @@ export function configureFakeBackend() {
                 if (url.endsWith('/users') && opts.method === 'GET') {
                     // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
                     if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
-                        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(users))});
+
+
+                        let emails = getEmails()
+                        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(emails))});
                     } else {
                         // return 401 not authorised if token is null or invalid
                         reject('Unauthorised');
@@ -108,6 +121,32 @@ export function configureFakeBackend() {
                     resolve({ ok: true, text: () => Promise.resolve() });
 
                     return;
+                }
+
+
+                if (url.endsWith('/tasks') && opts.method === 'POST'){
+                  if(opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token'){
+                      let taskData = JSON.parse(opts.body)
+                      let newTask = {
+                              title: taskData.title,
+                              id: generateId(),
+                              completed: false,
+                              editMode: false,
+                              ownerId: taskData.ownerId,
+                              token: 'fake-jwt-token'
+                            };
+                            console.log(newTask)
+                      tasks.push(newTask)
+                      localStorage.setItem('tasks', JSON.stringify(tasks));
+
+                    resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(newTask))});
+
+                  } else {
+                    reject('Unauthorised');
+                  }
+
+                  return;
+
                 }
 
                 // delete user

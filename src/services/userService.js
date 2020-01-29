@@ -6,7 +6,8 @@ export const userService = {
     login,
     logout,
     register,
-    getAll,
+    addTask,
+    getUsersEmails,
     getUserStatus,
     getById,
     update,
@@ -33,6 +34,29 @@ function login({email, password}) {
         });
 }
 
+
+function  addTask (title) {
+
+   let user = localStorage.getItem('user');
+   let ownerId = JSON.parse(user).id
+   let taskData = {
+     title,
+     ownerId
+    }
+    console.log(taskData)
+   const requestOptions = {
+     method: 'POST',
+     headers: authHeader(),
+     body: JSON.stringify(taskData)
+   };
+   return fetch(`${API_URL}/tasks`, requestOptions).then(handleResponse)
+ }
+
+
+ function setSharedTask(){
+
+ }
+
 function getTaskList(){
   let user = localStorage.getItem('user');
   let list =  user ? JSON.parse(user).taskList : []
@@ -48,7 +72,7 @@ function logout() {
     localStorage.removeItem('user');
 }
 
-function getAll() {
+function getUsersEmails() {
     const requestOptions = {
         method: 'GET',
         headers: authHeader()

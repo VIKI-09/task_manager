@@ -10,12 +10,7 @@ export const taskManagerReducer = (state = initialState, action) => {
       case ADD_TASK :
         return [
           ...state,
-          {
-            title: action.payload,
-            id: Date.now(),
-            completed: false,
-            editMode: false
-          }
+          action.payload
         ]
       case REMOVE_TASK :
         return  [...state].filter(task => task.id !== action.payload)

@@ -1,7 +1,7 @@
 import React from 'react';
 import TaskManager from '../Components/TaskManager';
 import {connect } from 'react-redux';
-import {setTaskTitle, setTaskComplete, removeTask, setNewTaskTitle, setTaskForEdit} from '../store/TaskManager/actions'
+import {addTask, setTaskComplete, removeTask, setNewTaskTitle, setTaskForEdit} from '../store/TaskManager/actions'
 
 
 const TaskManagerContainer = (props) => {
@@ -9,7 +9,7 @@ const TaskManagerContainer = (props) => {
   return (
     <TaskManager
     taskListData={props.taskListData}
-    addTask={props.setTaskTitle}
+    addTask={props.addTask}
     completeToggleTask={props.setTaskComplete}
     editToggleTask={props.setTaskForEdit}
     editTask={props.setNewTaskTitle}
@@ -28,7 +28,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  setTaskTitle,
+  addTask,
   setTaskComplete,
   removeTask,
   setNewTaskTitle,
