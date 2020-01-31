@@ -149,6 +149,30 @@ export function configureFakeBackend() {
 
                 }
 
+
+
+                if(url.endsWith('/tasks') && opts.method === 'GET') {
+                  if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token'){
+                        let userId = JSON.parse(opts.body);
+
+
+                        // let urlParts = url.split('/');
+                        // let id = parseInt(urlParts[urlParts.length - 1]);
+                        let userTasks = tasks.filter(task => { return task.ownerId === userId; });
+                        let response = userTasks[0] ? userTasks : null
+                        console.log(response);
+                    resolve({ok: true, text: () => Promise.resolve(JSON.stringify(response))})
+                  } else {
+                    reject('Unauthorised')
+                  }
+
+                  return;
+
+                }
+
+
+
+
                 // delete user
                 if (url.match(/\/users\/\d+$/) && opts.method === 'DELETE') {
                     // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
@@ -179,7 +203,7 @@ export function configureFakeBackend() {
                 // pass through any requests not handled above
                 realFetch(url, opts).then(response => resolve(response));
 
-            }, 500);
+            }, 300);
         });
     }
 }

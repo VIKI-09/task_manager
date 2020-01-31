@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TaskManager from '../Components/TaskManager';
 import {connect } from 'react-redux';
-import {addTask, setTaskComplete, removeTask, setNewTaskTitle, setTaskForEdit} from '../store/TaskManager/actions'
+import {addTask, setTaskComplete, removeTask, setNewTaskTitle, setTaskForEdit, getTasks} from '../store/TaskManager/actions'
 
 
 const TaskManagerContainer = (props) => {
+
+useEffect(() => {props.getTasks(); console.log('GETTING TASTk')}, [])
+
 
   return (
     <TaskManager
@@ -14,6 +17,7 @@ const TaskManagerContainer = (props) => {
     editToggleTask={props.setTaskForEdit}
     editTask={props.setNewTaskTitle}
     removeTask={props.removeTask}
+    getTasks={props.getTasks}
 
 
     />
@@ -32,7 +36,8 @@ const mapDispatchToProps = {
   setTaskComplete,
   removeTask,
   setNewTaskTitle,
-  setTaskForEdit
+  setTaskForEdit,
+  getTasks
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskManagerContainer);

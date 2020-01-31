@@ -6,6 +6,7 @@ export const userService = {
     login,
     logout,
     register,
+    getTaskList,
     addTask,
     getUsersEmails,
     getUserStatus,
@@ -59,8 +60,14 @@ function  addTask (title) {
 
 function getTaskList(){
   let user = localStorage.getItem('user');
-  let list =  user ? JSON.parse(user).taskList : []
-  return  list;
+     let ownerId = JSON.parse(user).id
+   const requestOptions = {
+     method: 'GET',
+     headers: authHeader(),
+     body: JSON.stringify(ownerId)
+   };
+
+   return fetch(`${API_URL}/tasks`, requestOptions).then(handleResponse)
 }
 
 function getUserStatus(){

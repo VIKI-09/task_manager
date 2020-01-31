@@ -5,16 +5,38 @@ export const COMPLETE_TOGGLE_TASK = 'COMPLETE_TOGGLE_TASK';
 export const REMOVE_TASK = 'REMOVE_TASK';
 export const EDIT_TASK = 'EDIT_TASK';
 export const EDIT_TOGGLE_TASK = 'EDIT_TOGGLE_TASK';
+export const RECEIVE_TASKS = 'GET_TASKS';
 
 
+export const  getTasks = () => (dispatch) => {
+
+  userService.getTaskList()
+          .then( response => {
+
+            dispatch({
+              type: RECEIVE_TASKS,
+              payload: response
+            },
+            error => {
+              console.log(error)
+            }
+          )
+          })
+
+}
 
 export const addTask = (title) => (dispatch) => {
-  userService.addTask(title)
-                .then(response => {
+
+        userService.addTask(title)
+                .then( response => {
                   dispatch({
                     type: ADD_TASK,
                     payload: response
-                  })
+                  },
+                  error => {
+                    console.log(error)
+                  }
+                )
                 })
 }
 

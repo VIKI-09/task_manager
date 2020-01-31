@@ -1,12 +1,20 @@
 // import {combineReducers} from 'redux';
 // import { reducer as formReducer } from 'redux-form'
-import {ADD_TASK, COMPLETE_TOGGLE_TASK, REMOVE_TASK, EDIT_TASK, EDIT_TOGGLE_TASK} from './actions';
+import {ADD_TASK, COMPLETE_TOGGLE_TASK, REMOVE_TASK, EDIT_TASK, EDIT_TOGGLE_TASK, RECEIVE_TASKS} from './actions';
 import { userService } from '../../services/userService'
 
-const initialState  = userService.getTaskList()
+const initialState  = []
 
 export const taskManagerReducer = (state = initialState, action) => {
     switch(action.type){
+      case RECEIVE_TASKS :
+          if(action.payload){
+            return [
+              ...state,
+              ...action.payload
+            ]
+          }
+        return state
       case ADD_TASK :
         return [
           ...state,
