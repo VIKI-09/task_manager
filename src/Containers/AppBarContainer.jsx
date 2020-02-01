@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Header from '../Components/Layouts/Header';
 import { connect } from 'react-redux';
 import { changeStatusLogout } from '../store/AppBar/actions'
+import { resetApp } from '../store/actions'
 import { userService } from '../services/userService'
 const AppBarContainer  = (props) => {
 

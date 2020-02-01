@@ -6,6 +6,7 @@ export const REMOVE_TASK = 'REMOVE_TASK';
 export const EDIT_TASK = 'EDIT_TASK';
 export const EDIT_TOGGLE_TASK = 'EDIT_TOGGLE_TASK';
 export const RECEIVE_TASKS = 'GET_TASKS';
+export const RESET_TASK_LIST = 'RESET_TASK_LIST';
 
 
 export const  getTasks = () => (dispatch) => {
@@ -55,4 +56,9 @@ export const setNewTaskTitle = (id, value) => ({
 export const setTaskForEdit = id => ({
   type: EDIT_TOGGLE_TASK,
   payload: id
+})
+
+
+export const resetList = () => ({
+  type: RESET_TASK_LIST
 })

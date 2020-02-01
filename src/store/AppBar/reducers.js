@@ -13,9 +13,10 @@ return userData
 export const appBarReducer = (state = initialState, action) => {
   switch(action.type){
     case CHANGE_STATUS_LOGOUT:
-      return { loggedIn: false};
+      return {
+        loggedIn: false
+      };
     case CHANGE_STATUS_LOGIN:
-    console.log('CANGED CHANGED CHANGED')
       return {
         loggedIn: true
       }
