@@ -17,7 +17,7 @@ return ( <form onSubmit={submitHandler}>
   <TextField
      id="filled-full-width"
      fullWidth
-     placeholder="Add todo"
+     placeholder="Add Task ..."
      value={value}
      onChange={event => setValue(event.target.value)}
      //className={classes.textField}
