@@ -174,18 +174,20 @@ export function configureFakeBackend() {
 
 
                 // delete user
-                if (url.match(/\/users\/\d+$/) && opts.method === 'DELETE') {
+                if (url.match(/\/tasks\/.+$/) && opts.method === 'DELETE') {
                     // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
                     if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
                         // find user by id in users array
                         let urlParts = url.split('/');
-                        let id = parseInt(urlParts[urlParts.length - 1]);
-                        for (let i = 0; i < users.length; i++) {
-                            let user = users[i];
-                            if (user.id === id) {
+                        console.log(urlParts)
+                        let id = urlParts[urlParts.length - 1];
+                          console.log(id)
+                        for (let i = 0; i < tasks.length; i++) {
+                            let task = tasks[i];
+                            if (task.id === id) {
                                 // delete user
-                                users.splice(i, 1);
-                                localStorage.setItem('users', JSON.stringify(users));
+                                tasks.splice(i, 1);
+                                localStorage.setItem('tasks', JSON.stringify(tasks));
                                 break;
                             }
                         }
