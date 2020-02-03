@@ -8,6 +8,7 @@ export const userService = {
     register,
     getTaskList,
     addTask,
+    completeTask,
     deleteTask,
     getUsersEmails,
     getUserStatus,
@@ -54,6 +55,15 @@ function  addTask (title) {
    return fetch(`${API_URL}/tasks`, requestOptions).then(handleResponse)
  }
 
+
+function completeTask(id){
+  const requestOptions = {
+      method: 'PUT',
+      headers: authHeader()
+  };
+
+    return fetch(`${API_URL}/tasks/edit/${id}`, requestOptions).then(handleResponse);
+}
 
  function setSharedTask(){
 
@@ -126,10 +136,10 @@ function update(user) {
 function deleteTask(id){
   const requestOptions = {
       method: 'DELETE',
-      headers: authHeader() 
+      headers: authHeader()
   };
 
-    return fetch(`${API_URL}/tasks/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${API_URL}/tasks/delete/${id}`, requestOptions).then(handleResponse);
 }
 
 

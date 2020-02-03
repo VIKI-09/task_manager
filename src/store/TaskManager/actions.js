@@ -38,7 +38,7 @@ export const addTask = (title) => (dispatch) => {
 }
 
 export const setTaskComplete = (id) => (dispatch) => {
-  userService.deleteTask(id)
+  userService.completeTask(id)
   .then( response => {
     dispatch({
       type: COMPLETE_TOGGLE_TASK,
