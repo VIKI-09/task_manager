@@ -9,6 +9,7 @@ export const userService = {
     getTaskList,
     addTask,
     completeTask,
+    editTask,
     deleteTask,
     getUsersEmails,
     getUserStatus,
@@ -62,8 +63,22 @@ function completeTask(id){
       headers: authHeader()
   };
 
-    return fetch(`${API_URL}/tasks/edit/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${API_URL}/tasks/complete/${id}`, requestOptions).then(handleResponse);
 }
+
+
+function editTask(id, value){
+  console.log(`${value} in USER SEVICE` )
+  const requestOptions = {
+    method: 'PUT',
+    headers: authHeader(),
+    body: JSON.stringify(value)
+  };
+
+  return fetch(`${API_URL}/tasks/edit/${id}`, requestOptions).then(handleResponse);
+}
+
+
 
  function setSharedTask(){
 

@@ -170,12 +170,27 @@ export function configureFakeBackend() {
 
                 }
 
-                  if(/\/tasks\/edit\/.+$/ && opts.method === 'PUT'){
+                  if(url.match(/\/tasks\/complete\/.+$/) && opts.method === 'PUT'){
                       if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token'){
                         let urlParts = url.split('/');
                         let id = urlParts[urlParts.length - 1];
                         let editIndex = tasks.findIndex( (task) => task.id === id)
-                        tasks[editIndex].completed = true;
+                        tasks[editIndex].completed = !tasks[editIndex].completed;
+                        localStorage.setItem('tasks', JSON.stringify(tasks));
+                          resolve({ ok: true, text: () => Promise.resolve() });
+                      } else {
+                            reject('Unauthorised');
+                      }
+                      return
+                  }
+                  if(url.match(/\/tasks\/edit\/.+$/) && opts.method === 'PUT'){
+                      if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token'){
+                        let urlParts = url.split('/');
+                        let id = urlParts[urlParts.length - 1];
+                        let title = JSON.parse(opts.body);
+                        console.log(`${title} in backend`)
+                        let editIndex = tasks.findIndex( (task) => task.id === id)
+                        tasks[editIndex].title = title;
                         localStorage.setItem('tasks', JSON.stringify(tasks));
                           resolve({ ok: true, text: () => Promise.resolve() });
                       } else {
@@ -186,7 +201,7 @@ export function configureFakeBackend() {
 
 
                 // delete user
-                if (/\/tasks\/delete\/.+$/ && opts.method === 'DELETE') {
+                if (url.match(/\/tasks\/delete\/.+$/) && opts.method === 'DELETE') {
                     // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
                     if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
                         // find user by id in users array
