@@ -1,7 +1,7 @@
 // import {combineReducers} from 'redux';
 // import { reducer as formReducer } from 'redux-form'
-import {ADD_TASK, COMPLETE_TOGGLE_TASK, REMOVE_TASK, EDIT_TASK, EDIT_TOGGLE_TASK, RECEIVE_TASKS, RESET_TASK_LIST} from './actions';
-import { userService } from '../../services/userService'
+import {ADD_TASK, COMPLETE_TOGGLE_TASK, REMOVE_TASK, EDIT_TASK, EDIT_TOGGLE_TASK, RECEIVE_TASKS} from './actions';
+
 
 const initialState  = []
 
@@ -46,8 +46,6 @@ export const taskManagerReducer = (state = initialState, action) => {
                          }
                    return task
               }))
-        case RESET_TASK_LIST:
-          return initialState
 
       default:
         return state;

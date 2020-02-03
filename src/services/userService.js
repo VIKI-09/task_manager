@@ -8,6 +8,9 @@ export const userService = {
     register,
     getTaskList,
     addTask,
+    completeTask,
+    editTask,
+    deleteTask,
     getUsersEmails,
     getUserStatus,
     getById,
@@ -52,6 +55,29 @@ function  addTask (title) {
    };
    return fetch(`${API_URL}/tasks`, requestOptions).then(handleResponse)
  }
+
+
+function completeTask(id){
+  const requestOptions = {
+      method: 'PUT',
+      headers: authHeader()
+  };
+
+    return fetch(`${API_URL}/tasks/complete/${id}`, requestOptions).then(handleResponse);
+}
+
+
+function editTask(id, value){
+  console.log(`${value} in USER SEVICE` )
+  const requestOptions = {
+    method: 'PUT',
+    headers: authHeader(),
+    body: JSON.stringify(value)
+  };
+
+  return fetch(`${API_URL}/tasks/edit/${id}`, requestOptions).then(handleResponse);
+}
+
 
 
  function setSharedTask(){
@@ -120,6 +146,19 @@ function update(user) {
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
+
+
+function deleteTask(id){
+  const requestOptions = {
+      method: 'DELETE',
+      headers: authHeader()
+  };
+
+    return fetch(`${API_URL}/tasks/delete/${id}`, requestOptions).then(handleResponse);
+}
+
+
+
 function _delete(id) {
     const requestOptions = {
         method: 'DELETE',
